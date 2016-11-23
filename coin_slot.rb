@@ -9,4 +9,9 @@ class CoinSlot
   def insert_money(coin)
     @inserted_money += coin.value
   end
+
+  def return_inserted_money
+    @inserted_money = 0
+  end
+
 end

@@ -19,4 +19,11 @@ class CoinSpecTest < MiniTest::Test
     assert_equal(0.20, @coin_slot.inserted_money)
   end
 
+  def test_return_inserted_money
+    @coin_slot.insert_money(@coin20)
+    @coin_slot.return_inserted_money
+    assert_equal(0, @coin_slot.inserted_money)
+  end
+
+
 end
