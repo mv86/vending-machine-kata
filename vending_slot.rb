@@ -1,6 +1,8 @@
 class VendingSlot
 
-  attr_reader :slot_position, :slot_item, :maximum_level, :current_level
+  attr_reader :slot_position, :slot_item, :maximum_level
+
+  attr_accessor :current_level
 
   def initialize(slot_position, slot_item, maximum_level, current_level)
     @slot_position = slot_position

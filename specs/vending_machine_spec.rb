@@ -54,4 +54,11 @@ class CoinSpecTest < MiniTest::Test
        @vending_machine.buy_item(@coin_slot.inserted_money))
   end
 
+  def test_stock_levels_decrease
+    @vending_machine.select_item(@vending_slot1)
+    @coin_slot.insert_money(@coin100)
+    first_item_bought = @vending_machine.buy_item(@coin_slot.inserted_money)
+    assert_equal(5, @vending_slot1.current_level)
+  end
+
 end

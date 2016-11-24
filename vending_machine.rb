@@ -4,7 +4,6 @@ class VendingMachine
 
   def initialize()
     @item_selected = []
-    # @inserted_money = CoinSlot.inserted_money
   end
 
   def select_item(slot)
@@ -18,8 +17,10 @@ class VendingMachine
     if inserted_money < item_selected_price
       "You have inserted £#{inserted_money}, please insert £#{item_selected_price - inserted_money} more"
     elsif inserted_money == item_selected_price
+      @item_selected[0].current_level -= 1
       "Please collect your item from the tray"
     else inserted_money > item_selected_price
+      @item_selected[0].current_level -= 1
       "Please collect your item from the tray & £#{inserted_money - item_selected_price} from the change drawer"
     end
   end
