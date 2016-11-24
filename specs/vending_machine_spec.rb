@@ -23,29 +23,35 @@ class CoinSpecTest < MiniTest::Test
     @vending_slot3 = VendingSlot.new("C", @item3, 6, 1)
   end
 
+  def test_setup
+    assert_equal([], @vending_machine.item_selected)
+  end
+
   def test_item_selected
     assert_equal("You have selected 'A', please insert £0.65.", 
       @vending_machine.select_item(@vending_slot1))
+    @vending_machine.select_item(@vending_slot1)
+    assert_equal([@vending_slot1], @vending_machine.item_selected)
   end
 
   def test_cannot_buy_item
-    @vending_machine.select_item(@vending_slot1))
+    @vending_machine.select_item(@vending_slot1)
     assert_equal("You have inserted £0, please insert £0.65 more", 
-      @vending_machine.buy_item())
+      @vending_machine.buy_item(@coin_slot.inserted_money))
   end
 
   def test_can_buy_item_exact_money
-    @vending_machine.select_item(@vending_slot2))
-    @coin_slot.insert(@coin100)
+    @vending_machine.select_item(@vending_slot2)
+    @coin_slot.insert_money(@coin100)
     assert_equal("Please collect your item from the tray", 
-      @vending_machine.buy_item())
+      @vending_machine.buy_item(@coin_slot.inserted_money))
   end
 
   def test_can_buy_item_return_change
-    @vending_machine.select_item(@vending_slot1))
-    @coin_slot.insert(@coin100)
+    @vending_machine.select_item(@vending_slot1)
+    @coin_slot.insert_money(@coin100)
     assert_equal("Please collect your item from the tray & £0.35 from the change drawer",
-       @vending_machine.buy_item())
+       @vending_machine.buy_item(@coin_slot.inserted_money))
   end
 
 end
