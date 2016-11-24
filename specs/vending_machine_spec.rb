@@ -28,4 +28,24 @@ class CoinSpecTest < MiniTest::Test
       @vending_machine.select_item(@vending_slot1))
   end
 
+  def test_cannot_buy_item
+    @vending_machine.select_item(@vending_slot1))
+    assert_equal("You have inserted £0, please insert £0.65 more", 
+      @vending_machine.buy_item())
+  end
+
+  def test_can_buy_item_exact_money
+    @vending_machine.select_item(@vending_slot2))
+    @coin_slot.insert(@coin100)
+    assert_equal("Please collect your item from the tray", 
+      @vending_machine.buy_item())
+  end
+
+  def test_can_buy_item_return_change
+    @vending_machine.select_item(@vending_slot1))
+    @coin_slot.insert(@coin100)
+    assert_equal("Please collect your item from the tray & £0.35 from the change drawer",
+       @vending_machine.buy_item())
+  end
+
 end
