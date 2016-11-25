@@ -13,15 +13,19 @@ class VendingMachine
   end
 
   def buy_item(inserted_money)
-    item_selected_price = @item_selected[0].slot_item.price 
-    if inserted_money < item_selected_price
-      "You have inserted £#{inserted_money}, please insert £#{item_selected_price - inserted_money} more"
-    elsif inserted_money == item_selected_price
-      @item_selected[0].current_level -= 1
-      "Please collect your item from the tray"
-    else inserted_money > item_selected_price
-      @item_selected[0].current_level -= 1
-      "Please collect your item from the tray & £#{inserted_money - item_selected_price} from the change drawer"
+    item_selected_price = @item_selected[0].slot_item.price
+    if @item_selected[0].current_level > 0 
+      if inserted_money < item_selected_price
+        "You have inserted £#{inserted_money}, please insert £#{item_selected_price - inserted_money} more"
+      elsif inserted_money == item_selected_price
+        @item_selected[0].current_level -= 1
+        "Please collect your item from the tray"
+      else inserted_money > item_selected_price
+        @item_selected[0].current_level -= 1
+        "Please collect your item from the tray & £#{inserted_money - item_selected_price} from the change drawer"
+      end
+    else
+      "I'm sorry. That item is out of stock"
     end
   end
 

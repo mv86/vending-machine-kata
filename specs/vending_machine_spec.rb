@@ -61,4 +61,14 @@ class CoinSpecTest < MiniTest::Test
     assert_equal(5, @vending_slot1.current_level)
   end
 
+  def test_item_out_of_stock
+    @vending_machine.select_item(@vending_slot3)
+    inserted_money = @coin_slot.insert_money(@coin100)
+    inserted_money += @coin_slot.insert_money(@coin50)
+    @vending_machine.buy_item(inserted_money)
+    assert_equal(0, @vending_slot3.current_level)
+    @vending_machine.select_item(@vending_slot3)
+    assert_equal("I'm sorry. That item is out of stock", @vending_machine.buy_item(inserted_money))
+  end
+
 end
