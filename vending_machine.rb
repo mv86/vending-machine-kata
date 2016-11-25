@@ -14,15 +14,16 @@ class VendingMachine
 
   def buy_item(inserted_money)
     item_selected_price = @item_selected[0].slot_item.price
+    
     if @item_selected[0].current_level > 0 
       if inserted_money < item_selected_price
-        "You have inserted £#{inserted_money}, please insert £#{item_selected_price - inserted_money} more"
+        "You have inserted £#{sprintf( "%0.02f", inserted_money)}, please insert £#{sprintf("%0.02f", (item_selected_price - inserted_money))} more"
       elsif inserted_money == item_selected_price
         @item_selected[0].current_level -= 1
         "Please collect your item from the tray"
       else inserted_money > item_selected_price
         @item_selected[0].current_level -= 1
-        "Please collect your item from the tray & £#{inserted_money - item_selected_price} from the change drawer"
+        "Please collect your item from the tray & £#{sprintf("%0.02f", (inserted_money - item_selected_price))} from the change drawer"
       end
     else
       "I'm sorry. That item is out of stock"

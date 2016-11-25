@@ -36,7 +36,7 @@ class CoinSpecTest < MiniTest::Test
 
   def test_cannot_buy_item
     @vending_machine.select_item(@vending_slot1)
-    assert_equal("You have inserted £0, please insert £0.65 more", 
+    assert_equal("You have inserted £0.00, please insert £0.65 more", 
       @vending_machine.buy_item(@coin_slot.inserted_money))
   end
 
@@ -52,6 +52,14 @@ class CoinSpecTest < MiniTest::Test
     @coin_slot.insert_money(@coin100)
     assert_equal("Please collect your item from the tray & £0.35 from the change drawer",
        @vending_machine.buy_item(@coin_slot.inserted_money))
+  end
+
+  def test_add_money_until_can_buy_item
+    @vending_machine.select_item(@vending_slot1)
+    inserted_money = @coin_slot.insert_money(@coin50)
+    assert_equal("You have inserted £0.50, please insert £0.15 more", @vending_machine.buy_item(inserted_money))
+    inserted_money = @coin_slot.insert_money(@coin20)
+    assert_equal("Please collect your item from the tray & £0.05 from the change drawer", @vending_machine.buy_item(inserted_money))
   end
 
   def test_stock_levels_decrease
