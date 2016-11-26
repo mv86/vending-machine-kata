@@ -7,7 +7,7 @@ require_relative '../item'
 require_relative '../vending_slot'
 require_relative '../money_level'
 
-class CoinSpecTest < MiniTest::Test
+class VendingMachineTest < MiniTest::Test
 
   def setup
     @vending_machine = VendingMachine.new()
